@@ -6,7 +6,6 @@ const yahooStockPrices = require("yahoo-stock-prices");
 const cron = require("node-cron");
 const db = new Database();
 const client = new Discord.Client();
-const prefix = process.env.prefix;
 
 const sadWords = [
   "sad",
@@ -142,8 +141,8 @@ client.on("message", async (msg) => {
   }
 
   if (msg.content.startsWith("$prune")) {
-    const amount = parseInt(args[0]) + 1;
-    if (isNaN(amount)) {
+    const number = msg.content.split("$prune ")[1];
+    if (isNaN(number)) {
       return msg.channel.send("that doesn't seem to be a valid number");
     } else if (amount <= 1 || amount > 100) {
       return msg.channel.send("you need to input a number between 2 and 100");
