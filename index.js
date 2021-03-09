@@ -3,7 +3,7 @@ const Discord = require("discord.js")
 const fetch = require("node-fetch")
 const Database = require("@replit/database")
 const yahooStockPrices = require("yahoo-stock-prices");
-
+const cron = require('node-cron');
 const db = new Database()
 const client = new Discord.Client()
 
@@ -19,20 +19,20 @@ db.get("encouragements").then(encouragements => {
   console.log(encouragements)
   if (!encouragements || encouragements.length < 1) {
     db.set("encouragements", starterEncouragements)
-  }  
+  }
 })
 
 db.get("responding").then(value => {
   if (value == null) {
     db.set("responding", true)
-  }  
+  }
 })
 
 function getQuote() {
   return fetch("https://zenquotes.io/api/random")
     .then(res => {
       return res.json()
-      })
+    })
     .then(data => {
       return data[0]["q"] + " -" + data[0]["a"]
     })
@@ -56,6 +56,10 @@ function deleteEncouragment(index) {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
+  cron.schedule('0 16 * * *', () => {
+    const channel = client.channels.cache.get('398918078655758339');
+    getQuote().then(quote => channel.send(`Daily quote of the day: ${quote}`));
+  });
 })
 
 client.on('guildMemberAdd', member => {
@@ -95,7 +99,7 @@ client.on("message", async msg => {
       msg.channel.send(encouragements)
     })
   }
-    
+
   if (msg.content.startsWith("$responding")) {
     value = msg.content.split("$responding ")[1]
 
