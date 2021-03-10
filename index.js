@@ -82,7 +82,6 @@ client.on("guildMemberAdd", (member) => {
 
 client.on("message", async (msg) => {
 
-  const args = msg.content.slice(prefix.length).trim().split(/ +/);
 
   if (msg.content === "$inspire") {
     getQuote().then((quote) => msg.channel.send(quote));
@@ -144,10 +143,10 @@ client.on("message", async (msg) => {
     const number = msg.content.split("$prune ")[1];
     if (isNaN(number)) {
       return msg.channel.send("that doesn't seem to be a valid number");
-    } else if (amount <= 1 || amount > 100) {
+    } else if (number <= 1 || number > 100) {
       return msg.channel.send("you need to input a number between 2 and 100");
     }
-    msg.channel.bulkDelete(amount, true).catch(err => {
+    msg.channel.bulkDelete(number, true).catch(err => {
       console.error(err);
       msg.channel.send("there was an error trying to prune messages");
     })
