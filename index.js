@@ -132,6 +132,11 @@ client.on("message", async (msg) => {
     msg.channel.send(`GME CURRENT PRICE: $${price} 💎🙌🚀🚀🚀 `);
   }
 
+  if (msg.content.startsWith("$roblox")) {
+    const price = await yahooStockPrices.getCurrentPrice("RBLX");
+    msg.channel.send(`ROBLOX CURRENT PRICE: $${price}`);
+  }
+
   if (msg.content.includes("demon slayer movie")) {
     const attachment = new Discord.MessageAttachment(
       "https://memegenerator.net/img/instances/65073182.jpg"
