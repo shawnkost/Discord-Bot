@@ -70,12 +70,12 @@ client.on("ready", () => {
       channel.send(`Daily quote of the day: ${quote}`)
     );
   });
-  cron.schedule("0 16-22/1 * * *", async () => {
+  cron.schedule("1 16-22/1 * * 1-5", async () => {
     const channel = client.channels.cache.get("398918078655758339");
     const price = await yahooStockPrices.getCurrentPrice("GME");
-    msg.channel.send(`GME CURRENT PRICE: $${price} 💎🙌🚀🚀🚀 `);
+    channel.send(`GME CURRENT PRICE: $${price} 💎🙌🚀🚀🚀 `);
     const roblox = await yahooStockPrices.getCurrentPrice("RBLX");
-    msg.channel.send(`ROBLOX CURRENT PRICE: $${roblox}`);
+    channel.send(`ROBLOX CURRENT PRICE: $${roblox}`);
   })
 });
 
