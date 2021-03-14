@@ -64,13 +64,13 @@ function deleteEncouragment(index) {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  cron.schedule("0 16 * * *", () => {
+  cron.schedule("0 18 * * *", () => {
     const channel = client.channels.cache.get("398918078655758339");
     getQuote().then((quote) =>
       channel.send(`Daily quote of the day: ${quote}`)
     );
   });
-  cron.schedule("1 16-22/1 * * 1-5", async () => {
+  cron.schedule("1 18-22/1 * * 1-5", async () => {
     const channel = client.channels.cache.get("398918078655758339");
     const price = await yahooStockPrices.getCurrentPrice("GME");
     channel.send(`GME CURRENT PRICE: $${price} 💎🙌🚀🚀🚀 `);
