@@ -70,8 +70,8 @@ client.on("ready", () => {
       channel.send(`Daily quote of the day: ${quote}`)
     );
   });
-  cron.schedule("1 17-22/1 * * 1-5", async () => {
-    const channel = client.channels.cache.get("398918078655758339");
+  cron.schedule("0 17-22/1 * * 1-5", async () => {
+    const channel = client.channels.cache.get("821443098277052427");
     const price = await yahooStockPrices.getCurrentPrice("GME");
     channel.send(`GME CURRENT PRICE: $${price} 💎🙌🚀🚀🚀 `);
     const roblox = await yahooStockPrices.getCurrentPrice("RBLX");
