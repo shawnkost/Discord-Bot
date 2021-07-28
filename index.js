@@ -23,8 +23,10 @@ const starterEncouragements = [
   "You are a great person / bot!",
 ];
 
+const generalChannelID = "398918078655758339";
+const stockPricesChannelID = "821443098277052427";
+
 db.get("encouragements").then((encouragements) => {
-  console.log(encouragements);
   if (!encouragements || encouragements.length < 1) {
     db.set("encouragements", starterEncouragements);
   }
@@ -65,13 +67,13 @@ function deleteEncouragment(index) {
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
   cron.schedule("0 17 * * *", () => {
-    const channel = client.channels.cache.get("398918078655758339");
+    const channel = client.channels.cache.get(generalChannelID);
     getQuote().then((quote) =>
       channel.send(`Daily quote of the day: ${quote}`)
     );
   });
   cron.schedule("0 17-22/1 * * 1-5", async () => {
-    const channel = client.channels.cache.get("821443098277052427");
+    const channel = client.channels.cache.get(stockPricesChannelID);
     const price = await yahooStockPrices.getCurrentPrice("GME");
     channel.send(`GME CURRENT PRICE: $${price} 💎🙌🚀🚀🚀 `);
     const roblox = await yahooStockPrices.getCurrentPrice("RBLX");
