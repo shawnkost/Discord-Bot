@@ -91,7 +91,16 @@ client.on("guildMemberAdd", (member) => {
 
 client.on("message", async (msg) => {
 
-
+  if (msg.content.startsWith("$stock") & msg.channel.id === stockPricesChannelID) {
+    try {
+      const stock = msg.content.split("$stock ")[1];
+      const price = await yahooStockPrices.getCurrentPrice(stock);
+      msg.channel.send(`${stock} price is ${price}`);
+    } catch {
+      msg.channel.send("Stock not found");
+    }   
+  }
+  
   if (msg.content === "$inspire") {
     getQuote().then((quote) => msg.channel.send(quote));
   }
