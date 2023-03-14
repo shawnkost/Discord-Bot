@@ -67,7 +67,7 @@ function deleteEncouragment(index) {
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
   cron.schedule("0 9 * * *", () => {
-    const channel = client.channels.cache.get(stockPricesChannelID);
+    const channel = client.channels.cache.get(generalChannelID);
     getQuote().then((quote) =>
       channel.send(`Daily quote of the day: ${quote}`)
     );
